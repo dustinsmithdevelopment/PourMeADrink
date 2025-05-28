@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title><%= data.name%></title>
+    <link rel="stylesheet" href="css/style.css" />
+</head>
+<body>
+<div class="container">
+    <h1>Random Cocktail Recipe</h1>
+    <div id="cocktail-info">
+        <h2><%= data.name%></h2>
+        <img src="<%= data.imageURL%>" alt="<%= data.name%>" />
+        <p><strong>Category:</strong> <%= data.category%></p>
+        <p><strong>Glass:</strong> <%= data.glass%></p>
+        <p><strong>Alcoholic:</strong> <%= data.isAlcoholic ? "Alcoholic":"Non-Alcoholic"%></p>
+        <p><strong>Ingredients:</strong></p>
+        <ul>
+            <% data.ingredients.forEach((ingredient)=>{%>
+            <li>
+                <%= ingredient.name%>
+            </li>
+            <% });%>
+        </ul>
+        <p><strong>Instructions:</strong></p>
+        <p><%= data.instructions%></p>
+    </div>
+</div>
+</body>
+</html>
