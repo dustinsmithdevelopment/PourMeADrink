@@ -2,6 +2,8 @@ import express from 'express';
 
 import axios from 'axios';
 
+let cocktails = null;
+
 
 const app = express();
 
@@ -13,10 +15,8 @@ app.set('view engine', 'ejs');
 
 app.get('/',async (req, res) => {
     try {
-        const result = await axios.get('https://boozeapi.com/api/v1/cocktails');
-        const cocktails = result.data.data;
+        await getDrinks();
         const randomCocktail = cocktails[Math.floor(Math.random() * cocktails.length)];
-        console.log(JSON.stringify(randomCocktail));
         const cocktailInfo = {
             name:randomCocktail.name,
             imageURL:randomCocktail.image,
@@ -33,6 +33,22 @@ app.get('/',async (req, res) => {
         console.log(e);
         res.send('Error 404: We seem to have returned to the prohibition era.')
     }
+
+    async function getDrinks() {
+        if (!cocktails){
+            await newDrinks();
+        }
+    }
+    async function newDrinks() {
+        try {
+            const result = await axios.get('https://boozeapi.com/api/v1/cocktails', {params: {page: Math.floor(Math.random() * 60)}});
+            cocktails = result.data.data;
+        }catch (e) {
+            console.log(e);
+            throw "Error: Could not get drinks from API.";
+        }
+    }
+    setInterval(newDrinks, 60_000);
 
 
 })
