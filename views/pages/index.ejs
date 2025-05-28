@@ -14,7 +14,7 @@
         <img src="<%= data.imageURL%>" alt="<%= data.name%>" />
         <p><strong>Category:</strong> <%= data.category%></p>
         <p><strong>Glass:</strong> <%= data.glass%></p>
-        <p><strong>Alcoholic:</strong> <%= data.isAlcoholic ? "Alcoholic":"Non-Alcoholic"%></p>
+        <p><strong>Alcoholic:</strong> <%= data.isAlcoholic ? "Yes":"No"%></p>
         <p><strong>Ingredients:</strong></p>
         <ul>
             <% data.ingredients.forEach((ingredient)=>{%>
